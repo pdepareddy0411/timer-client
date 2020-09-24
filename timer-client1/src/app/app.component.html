@@ -1,0 +1,56 @@
+<html>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+<div class="container">
+<h3 style="color:blue;">Welcome to timer app</h3></div>
+<body>
+<div class="heading">
+<div class="row">
+  <div class=col-md-3>
+  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="clockOption">
+    <mat-radio-button class="example-radio-button" *ngFor="let clock of clocks" [value]="clock">
+    {{clock}}
+    </mat-radio-button>
+  </mat-radio-group>
+  </div>
+  <div class="col-md-3" *ngIf="'digital'==clockOption || 'analog' == clockOption">
+    <div class=col-md-2>
+  <h5><b>Time zones</b></h5></div>
+  <mat-form-field appearance="fill">
+    <mat-label>Select a Value</mat-label>
+    <mat-select (valueChange)="doSomething($event)">
+          <mat-option *ngFor="let zone of zones" [value]="zone">
+            {{zone}}
+          </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+</div>
+
+<div class="row" *ngIf="'digital'==clockOption && isZone==true">
+  <app-timer-clock></app-timer-clock>
+</div>
+
+<div class="row" *ngIf="'analog'==clockOption && isZone==true">
+  <div class="row">
+    <div class="col-md-4">
+  <div class="clock">
+    <div class="analog-clock">
+      <div class="hour hand" [ngStyle]="hourHandStyle"></div>
+      <div class="minute hand" [ngStyle]="minuteHandStyle"></div>
+      <div class="second hand" [ngStyle]="secondHandStyle"></div>
+      <div class="center-circle"></div>
+    </div>
+  </div></div>
+    <div class="col-md-6">
+      <daypilot-scheduler [config]="config"></daypilot-scheduler>
+  </div>
+  <div class="digital-clock">{{format(hour)}}:{{format(minute)}}:{{format(second)}}</div>
+
+</div></div> </div>
+</body></html>
+
